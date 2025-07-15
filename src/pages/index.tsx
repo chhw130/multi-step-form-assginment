@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Geist, Geist_Mono } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
+import { useMultiStep } from '@/hooks/useMultiStep';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -12,7 +13,12 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const BOOK_REPORT_STEP = ['독서 기본 정보', '독서 추천', '독후감', '인용구', '공개 여부'] as const;
+
 export default function Home() {
+  const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep, stepProgress } =
+    useMultiStep(BOOK_REPORT_STEP);
+
   return (
     <>
       <Head>
@@ -22,7 +28,35 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}>
-        <main className={styles.main}></main>
+        <main className={styles.main}>
+          <section>{stepProgress}</section>
+          <section>
+            {(() => {
+              switch (currentStep) {
+                case '독서 기본 정보':
+                  return <div>독서 기본 정보</div>;
+                case '독서 추천':
+                  return <div>독서 추천</div>;
+                case '독후감':
+                  return <div>독후감</div>;
+                case '인용구':
+                  return <div>인용구</div>;
+                case '공개 여부':
+                  return <div>공개 여부</div>;
+                default:
+                  return null;
+              }
+            })()}
+          </section>
+          <section>
+            <button disabled={isFirstStep} onClick={navigatePrevStep}>
+              이전
+            </button>
+            <button disabled={isLastStep} onClick={navigateNextStep}>
+              다음
+            </button>
+          </section>
+        </main>
       </div>
     </>
   );
