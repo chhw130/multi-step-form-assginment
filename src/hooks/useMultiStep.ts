@@ -15,13 +15,19 @@ export const useMultiStep = <T extends readonly string[]>(steps: T): UseMultiSte
   const navigateNextStep = useCallback(() => {
     if (currentStep === steps[steps.length - 1]) return;
 
-    setCurrentStep((val) => steps[steps.indexOf(val) + 1]);
+    setCurrentStep((val) => {
+      const currentStepIndex = steps.indexOf(val);
+      return steps[currentStepIndex + 1];
+    });
   }, [currentStep]);
 
   const navigatePrevStep = useCallback(() => {
     if (currentStep === steps[0]) return;
 
-    setCurrentStep((val) => steps[steps.indexOf(val) - 1]);
+    setCurrentStep((val) => {
+      const currentStepIndex = steps.indexOf(val);
+      return steps[currentStepIndex - 1];
+    });
   }, [currentStep]);
 
   const isFirstStep = useMemo(() => currentStep === steps[0], [currentStep]);
