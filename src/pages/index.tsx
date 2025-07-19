@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import Head from 'next/head';
 import { Geist, Geist_Mono } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
@@ -15,6 +16,60 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
+
+const buttonGroupStyle = css`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
+`;
+
+const buttonStyle = css`
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+`;
+
+const primaryButtonStyle = css`
+  ${buttonStyle}
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+`;
+
+const secondaryButtonStyle = css`
+  ${buttonStyle}
+  background: #f7fafc;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+
+  &:hover:not(:disabled) {
+    background: #edf2f7;
+    border-color: #cbd5e0;
+  }
+`;
 
 export type BookReportForm = {
   readingStatus: ReadingStatus;
@@ -66,11 +121,11 @@ export default function Home() {
                 }
               })()}
             </section>
-            <section>
-              <button disabled={isFirstStep} onClick={navigatePrevStep}>
+            <section css={buttonGroupStyle}>
+              <button css={secondaryButtonStyle} disabled={isFirstStep} onClick={navigatePrevStep}>
                 이전
               </button>
-              <button disabled={isLastStep} onClick={onClickNextStep}>
+              <button css={primaryButtonStyle} disabled={isLastStep} onClick={onClickNextStep}>
                 다음
               </button>
             </section>

@@ -1,7 +1,94 @@
+import { css } from '@emotion/react';
 import { generatePeriodDisabled } from '../../utils/step';
 import { READING_STATUS } from '../../consts/consts';
 import { Controller, useFormContext } from 'react-hook-form';
 import { BookReportForm } from '@/pages';
+
+const containerStyle = css`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+`;
+
+const titleStyle = css`
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  text-align: center;
+`;
+
+const labelStyle = css`
+  display: block;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+`;
+
+const selectStyle = css`
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+`;
+
+const inputStyle = css`
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  &:disabled {
+    background: #f7fafc;
+    color: #a0aec0;
+    cursor: not-allowed;
+  }
+`;
+
+const errorStyle = css`
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+`;
+
+const subtitleStyle = css`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 2rem 0 1rem 0;
+`;
+
+const dateGroupStyle = css`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+`;
 
 const generateBasicInfoSchema = (formValues: BookReportForm) => {
   const [startDateDisabled, endDateDisabled] = generatePeriodDisabled(formValues.readingStatus);
@@ -47,54 +134,71 @@ const ReportBasicStep = () => {
   const dateError = errors.startDate?.message || errors.endDate?.message;
 
   return (
-    <article>
-      <h1>도서 기본 정보</h1>
-      <label htmlFor="reading-status">독서 상태</label>
-      <Controller
-        name="readingStatus"
-        control={control}
-        render={({ field }) => (
-          <select
-            id="reading-status"
-            {...field}
-            onChange={(e) => {
-              field.onChange(e.target.value);
-              setValue('startDate', '');
-              setValue('endDate', '');
-              clearErrors();
-            }}
-          >
-            <option value="">독서 상태를 선택해주세요.</option>
-            {READING_STATUS.map((status) => (
-              <option key={status.value} value={status.value}>
-                {status.label}
-              </option>
-            ))}
-          </select>
-        )}
-      />
-      <p>{errors.readingStatus?.message}</p>
+    <article css={containerStyle}>
+      <h1 css={titleStyle}>도서 기본 정보</h1>
 
-      <h2>독서 기간</h2>
-      <label htmlFor="start-date">
-        시작일
-        <input
-          id="start-date"
-          type="date"
-          disabled={basicInfoSchema.startDate.disabled}
-          {...register('startDate', basicInfoSchema.startDate)}
+      <div>
+        <label htmlFor="reading-status" css={subtitleStyle}>
+          독서 상태
+        </label>
+        <Controller
+          name="readingStatus"
+          control={control}
+          rules={basicInfoSchema.readingStatus}
+          render={({ field }) => (
+            <select
+              id="reading-status"
+              {...field}
+              css={selectStyle}
+              onChange={(e) => {
+                field.onChange(e.target.value);
+                setValue('startDate', '');
+                setValue('endDate', '');
+                clearErrors();
+              }}
+            >
+              <option value="">독서 상태를 선택해주세요.</option>
+              {READING_STATUS.map((status) => (
+                <option key={status.value} value={status.value}>
+                  {status.label}
+                </option>
+              ))}
+            </select>
+          )}
         />
-      </label>
-      <label htmlFor="end-date">
-        종료일
-        <input
-          id="end-date"
-          type="date"
-          disabled={basicInfoSchema.endDate.disabled}
-          {...register('endDate', basicInfoSchema.endDate)}
-        />
-      </label>
-      {dateError && <p>{dateError}</p>}
+        {errors.readingStatus?.message && <p css={errorStyle}>{errors.readingStatus.message}</p>}
+      </div>
+
+      <p css={subtitleStyle}>독서 기간</p>
+      <div css={dateGroupStyle}>
+        <div>
+          <label htmlFor="start-date" css={labelStyle}>
+            시작일
+          </label>
+          <input
+            id="start-date"
+            type="date"
+            disabled={basicInfoSchema.startDate.disabled}
+            {...register('startDate', basicInfoSchema.startDate)}
+            css={inputStyle}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="end-date" css={labelStyle}>
+            종료일
+          </label>
+          <input
+            id="end-date"
+            type="date"
+            disabled={basicInfoSchema.endDate.disabled}
+            {...register('endDate', basicInfoSchema.endDate)}
+            css={inputStyle}
+          />
+        </div>
+      </div>
+
+      {dateError && <p css={errorStyle}>{dateError}</p>}
     </article>
   );
 };
