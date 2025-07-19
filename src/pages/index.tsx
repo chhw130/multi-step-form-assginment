@@ -87,7 +87,9 @@ export default function Home() {
 
   const onClickNextStep = async () => {
     const isValid = await form.trigger();
-    if (!isValid) return;
+    if (!isValid) {
+      return;
+    }
 
     navigateNextStep();
   };

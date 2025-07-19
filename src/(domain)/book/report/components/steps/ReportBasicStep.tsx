@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { generatePeriodDisabled } from '../../utils/step';
 import { READING_STATUS } from '../../consts/consts';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { BookReportForm } from '@/pages';
 
 const containerStyle = css`
@@ -121,7 +121,6 @@ const ReportBasicStep = () => {
   const {
     register,
     watch,
-    control,
     formState: { errors },
     setValue,
     getValues,
@@ -130,6 +129,10 @@ const ReportBasicStep = () => {
 
   watch();
   const basicInfoSchema = generateBasicInfoSchema(getValues());
+  const { onChange: onChangeReadingStatus, ...rest } = register(
+    'readingStatus',
+    basicInfoSchema.readingStatus
+  );
 
   const dateError = errors.startDate?.message || errors.endDate?.message;
 
@@ -141,31 +144,24 @@ const ReportBasicStep = () => {
         <label htmlFor="reading-status" css={subtitleStyle}>
           독서 상태
         </label>
-        <Controller
-          name="readingStatus"
-          control={control}
-          rules={basicInfoSchema.readingStatus}
-          render={({ field }) => (
-            <select
-              id="reading-status"
-              {...field}
-              css={selectStyle}
-              onChange={(e) => {
-                field.onChange(e.target.value);
-                setValue('startDate', '');
-                setValue('endDate', '');
-                clearErrors();
-              }}
-            >
-              <option value="">독서 상태를 선택해주세요.</option>
-              {READING_STATUS.map((status) => (
-                <option key={status.value} value={status.value}>
-                  {status.label}
-                </option>
-              ))}
-            </select>
-          )}
-        />
+        <select
+          id="reading-status"
+          {...rest}
+          css={selectStyle}
+          onChange={(e) => {
+            onChangeReadingStatus(e);
+            setValue('startDate', '');
+            setValue('endDate', '');
+            clearErrors();
+          }}
+        >
+          <option value="">독서 상태를 선택해주세요.</option>
+          {READING_STATUS.map((status) => (
+            <option key={status.value} value={status.value}>
+              {status.label}
+            </option>
+          ))}
+        </select>
         {errors.readingStatus?.message && <p css={errorStyle}>{errors.readingStatus.message}</p>}
       </div>
 
