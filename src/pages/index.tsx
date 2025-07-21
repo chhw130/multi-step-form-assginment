@@ -6,6 +6,7 @@ import { useMultiStep } from '@/hooks/useMultiStep';
 import ReportBasicStep from '@/(domain)/book/report/components/steps/ReportBasicStep';
 import { FormProvider, useForm } from 'react-hook-form';
 import { ReadingStatus } from '@/(domain)/book/report/consts/consts';
+import StarRatingStep from '@/(domain)/book/report/components/steps/StarRatingStep';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -75,9 +76,10 @@ export type BookReportForm = {
   readingStatus: ReadingStatus;
   startDate: string;
   endDate: string;
+  starRating: number;
 };
 
-const BOOK_REPORT_STEP = ['독서 기본 정보', '독서 추천', '독후감', '인용구', '공개 여부'] as const;
+const BOOK_REPORT_STEP = ['독서 추천', '독서 기본 정보', '독후감', '인용구', '공개 여부'] as const;
 
 export default function Home() {
   const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep } =
@@ -111,7 +113,7 @@ export default function Home() {
                   case '독서 기본 정보':
                     return <ReportBasicStep />;
                   case '독서 추천':
-                    return <div>독서 추천</div>;
+                    return <StarRatingStep />;
                   case '독후감':
                     return <div>독후감</div>;
                   case '인용구':
