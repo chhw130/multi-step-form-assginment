@@ -79,16 +79,23 @@ export type BookReportForm = {
   starRating: number;
 };
 
-const BOOK_REPORT_STEP = ['독서 추천', '독서 기본 정보', '독후감', '인용구', '공개 여부'] as const;
+const BOOK_REPORT_STEP = ['독서 기본 정보', '독서 추천', '독후감', '인용구', '공개 여부'] as const;
 
 export default function Home() {
   const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep } =
     useMultiStep(BOOK_REPORT_STEP);
 
-  const form = useForm<BookReportForm>({ defaultValues: {}, mode: 'onChange' });
+  const form = useForm<BookReportForm>({
+    defaultValues: {
+      starRating: 0,
+    },
+    mode: 'onChange',
+  });
 
   const onClickNextStep = async () => {
     const isValid = await form.trigger();
+
+    console.log(form.getValues());
     if (!isValid) {
       return;
     }

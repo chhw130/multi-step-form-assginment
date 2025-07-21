@@ -4,6 +4,7 @@ import { useState } from 'react';
 interface StarRatingProps {
   rating?: number;
   size?: 'small' | 'medium' | 'large';
+  onChange?: (rating: number) => void;
 }
 
 const getStarSize = (size: 'small' | 'medium' | 'large') => {
@@ -59,17 +60,18 @@ const getStarFillType = (starIndex: number, currentRating: number) => {
   }
 };
 
-const StarRating = ({ rating = 0, size = 'medium' }: StarRatingProps) => {
+const StarRating = ({ rating = 0, size = 'medium', onChange }: StarRatingProps) => {
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [ratingValue, setRatingValue] = useState<number>(rating);
 
   const displayRating = hoverRating || ratingValue;
 
-  const handleStarClick = (starValue: number) => {
+  const onClickStar = (starValue: number) => {
     setRatingValue(starValue);
+    onChange?.(starValue);
   };
 
-  const handleStarHover = (starValue: number) => {
+  const onHoverStar = (starValue: number) => {
     setHoverRating(starValue);
   };
 
@@ -82,15 +84,17 @@ const StarRating = ({ rating = 0, size = 'medium' }: StarRatingProps) => {
           <span key={starIndex} css={[starContainerStyle]}>
             <span
               css={starHalfStyle(fillType === 'full' || fillType === 'half', true)}
-              onClick={() => handleStarClick(starIndex + 0.5)}
-              onMouseEnter={() => handleStarHover(starIndex + 0.5)}
+              onClick={() => onClickStar(starIndex + 0.5)}
+              onMouseEnter={() => onHoverStar(starIndex + 0.5)}
+              onMouseLeave={() => setHoverRating(0)}
             >
               ★
             </span>
             <span
               css={starHalfStyle(fillType === 'full', false)}
-              onClick={() => handleStarClick(starIndex + 1)}
-              onMouseEnter={() => handleStarHover(starIndex + 1)}
+              onClick={() => onClickStar(starIndex + 1)}
+              onMouseEnter={() => onHoverStar(starIndex + 1)}
+              onMouseLeave={() => setHoverRating(0)}
             >
               ★
             </span>
