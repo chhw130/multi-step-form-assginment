@@ -10,6 +10,7 @@ import {
   reportLengthStyle,
 } from '../css/step';
 import { useFormContext } from 'react-hook-form';
+import { useEffect } from 'react';
 
 const generateBookReportSchema = (starRating: BookReportForm['starRating']) => {
   const isMustReport = starRating === 1 || starRating === 5;
@@ -31,10 +32,20 @@ const BookReportStep = () => {
     register,
     watch,
     getValues,
+    setValue,
     formState: { errors },
   } = useFormContext<BookReportForm>();
 
   const starRating = getValues('starRating');
+
+  useEffect(() => {
+    const isMustReport = starRating === 1 || starRating === 5;
+
+    if (!isMustReport) {
+      setValue('bookReport', '');
+    }
+  }, [starRating, setValue]);
+
   const bookReportValue = watch('bookReport');
   const bookReportSchema = generateBookReportSchema(starRating);
 
