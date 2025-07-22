@@ -6,6 +6,8 @@ import {
   subtitleStyle,
   titleStyle,
   textareaStyle,
+  reportContainerStyle,
+  reportLengthStyle,
 } from '../css/step';
 import { useFormContext } from 'react-hook-form';
 
@@ -28,10 +30,12 @@ const BookReportStep = () => {
   const {
     register,
     watch,
+    getValues,
     formState: { errors },
   } = useFormContext<BookReportForm>();
 
-  const starRating = watch('starRating');
+  const starRating = getValues('starRating');
+  const bookReportValue = watch('bookReport');
   const bookReportSchema = generateBookReportSchema(starRating);
 
   return (
@@ -52,7 +56,10 @@ const BookReportStep = () => {
         id="bookReport"
         {...register('bookReport', bookReportSchema.bookReport)}
       />
-      {errors.bookReport && <p css={errorStyle}>{errors.bookReport.message}</p>}
+      <div css={reportContainerStyle}>
+        {errors.bookReport && <p css={errorStyle}>{errors.bookReport.message}</p>}
+        <p css={reportLengthStyle}>글자수 : {bookReportValue.length}</p>
+      </div>
     </article>
   );
 };

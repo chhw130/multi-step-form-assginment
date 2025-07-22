@@ -87,7 +87,10 @@ export default function Home() {
   const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep } =
     useMultiStep(BOOK_REPORT_STEP);
 
-  const form = useForm<BookReportForm>({ defaultValues: {}, mode: 'onChange' });
+  const form = useForm<BookReportForm>({
+    defaultValues: {},
+    mode: 'onChange',
+  });
 
   const onClickNextStep = async () => {
     const isValid = await form.trigger();

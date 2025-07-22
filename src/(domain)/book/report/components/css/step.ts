@@ -100,3 +100,16 @@ export const dateGroupStyle = css`
     grid-template-columns: 1fr;
   }
 `;
+
+export const reportContainerStyle = css`
+  display: flex;
+  align-items: flex-start;
+  min-height: 2rem;
+  margin-top: 0.5rem;
+`;
+
+export const reportLengthStyle = css`
+  font-size: 0.875rem;
+  color: #a0aec0;
+  margin-left: auto;
+`;
