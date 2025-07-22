@@ -61,6 +61,21 @@ export const inputStyle = css`
   }
 `;
 
+export const textareaStyle = css`
+  width: 100%;
+  padding: 0.875rem 1rem;
+  height: 200px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  resize: none;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+`;
+
 export const errorStyle = css`
   color: #e53e3e;
   font-size: 0.875rem;
