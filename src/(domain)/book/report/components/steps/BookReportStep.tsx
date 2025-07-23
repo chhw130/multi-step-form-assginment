@@ -37,6 +37,7 @@ const BookReportStep = () => {
   } = useFormContext<BookReportForm>();
 
   const starRating = getValues('starRating');
+  const bookReportSchema = generateBookReportSchema(starRating);
 
   useEffect(() => {
     const isMustReport = starRating === 1 || starRating === 5;
@@ -47,7 +48,7 @@ const BookReportStep = () => {
   }, [starRating, setValue]);
 
   const bookReportValue = watch('bookReport');
-  const bookReportSchema = generateBookReportSchema(starRating);
+  const bookReportLength = bookReportValue?.length ?? 0;
 
   return (
     <article css={containerStyle}>
@@ -69,7 +70,7 @@ const BookReportStep = () => {
       />
       <div css={reportContainerStyle}>
         {errors.bookReport && <p css={errorStyle}>{errors.bookReport.message}</p>}
-        <p css={reportLengthStyle}>글자수 : {bookReportValue.length}</p>
+        <p css={reportLengthStyle}>글자수 : {bookReportLength}</p>
       </div>
     </article>
   );

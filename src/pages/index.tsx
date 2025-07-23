@@ -95,7 +95,6 @@ export default function Home() {
   const onClickNextStep = async () => {
     const isValid = await form.trigger();
 
-    console.log(form.getValues());
     if (!isValid) {
       return;
     }
