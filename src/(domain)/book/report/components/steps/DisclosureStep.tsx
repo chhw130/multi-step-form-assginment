@@ -1,4 +1,10 @@
-import { containerStyle, titleStyle, subtitleStyle, errorStyle } from '../css/step';
+import {
+  containerStyle,
+  titleStyle,
+  subtitleStyle,
+  errorStyle,
+  radioGroupStyle,
+} from '../css/step';
 import { useFormContext } from 'react-hook-form';
 import { BookReportForm } from '@/pages';
 
@@ -17,7 +23,7 @@ const DisclosureStep = () => {
       <h2 css={titleStyle}>공개 여부</h2>
       <p css={subtitleStyle}>독서 기록을 공개 여부를 선택해주세요.</p>
 
-      <div>
+      <div css={radioGroupStyle}>
         <input
           type="radio"
           id="public"

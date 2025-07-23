@@ -197,3 +197,8 @@ export const pageCountStyle = css`
   font-size: 0.875rem;
   margin-top: 0.5rem;
 `;
+
+export const radioGroupStyle = css`
+  display: flex;
+  gap: 0.5rem;
+`;
