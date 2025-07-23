@@ -1,7 +1,7 @@
 import StarRating from '@/components/StarRating';
 import { BookReportForm } from '@/pages';
 import { Controller, useFormContext } from 'react-hook-form';
-import { containerStyle, titleStyle, subtitleStyle, labelStyle } from '../css/step';
+import { containerStyle, titleStyle, subtitleStyle, labelStyle } from './css/step';
 
 const StarRatingStep = () => {
   const { control } = useFormContext<BookReportForm>();

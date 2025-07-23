@@ -13,7 +13,7 @@ import {
   removeButtonStyle,
   quoteCountStyle,
   pageCountStyle,
-} from '../css/step';
+} from './css/step';
 import { BOOK_PAGE, NUMBER_VALIDATION } from '../../consts/consts';
 import Card from '@/components/Card';
 

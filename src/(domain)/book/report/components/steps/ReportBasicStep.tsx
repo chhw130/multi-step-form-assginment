@@ -11,7 +11,7 @@ import {
   errorStyle,
   dateGroupStyle,
   labelStyle,
-} from '../css/step';
+} from './css/step';
 
 const generateBasicInfoSchema = (formValues: BookReportForm) => {
   const [startDateDisabled, endDateDisabled] = generatePeriodDisabled(formValues.readingStatus);

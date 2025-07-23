@@ -1,10 +1,4 @@
-import {
-  containerStyle,
-  titleStyle,
-  subtitleStyle,
-  errorStyle,
-  radioGroupStyle,
-} from '../css/step';
+import { containerStyle, titleStyle, subtitleStyle, errorStyle, radioGroupStyle } from './css/step';
 import { useFormContext } from 'react-hook-form';
 import { BookReportForm } from '@/pages';
 
