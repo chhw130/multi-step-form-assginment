@@ -61,6 +61,21 @@ export const inputStyle = css`
   }
 `;
 
+export const textareaStyle = css`
+  width: 100%;
+  padding: 0.875rem 1rem;
+  height: 200px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  resize: none;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+`;
+
 export const errorStyle = css`
   color: #e53e3e;
   font-size: 0.875rem;
@@ -84,4 +99,17 @@ export const dateGroupStyle = css`
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
   }
+`;
+
+export const reportContainerStyle = css`
+  display: flex;
+  align-items: flex-start;
+  min-height: 2rem;
+  margin-top: 0.5rem;
+`;
+
+export const reportLengthStyle = css`
+  font-size: 0.875rem;
+  color: #a0aec0;
+  margin-left: auto;
 `;
