@@ -6,3 +6,7 @@ export const READING_STATUS = [
 ] as const;
 
 export type ReadingStatus = (typeof READING_STATUS)[number]['value'];
+
+export const BOOK_PAGE = 365;
+
+export const NUMBER_VALIDATION = /[^0-9]/g;
