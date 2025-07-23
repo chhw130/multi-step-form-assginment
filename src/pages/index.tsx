@@ -9,6 +9,7 @@ import { ReadingStatus } from '@/(domain)/book/report/consts/consts';
 import StarRatingStep from '@/(domain)/book/report/components/steps/StarRatingStep';
 import BookReportStep from '@/(domain)/book/report/components/steps/BookReportStep';
 import QuoteStep from '@/(domain)/book/report/components/steps/QuoteStep';
+import DisclosureStep from '@/(domain)/book/report/components/steps/DisclosureStep';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -86,9 +87,10 @@ export type BookReportForm = {
   starRating: number;
   bookReport: string;
   quoteInfo: Quote[];
+  disclosure: boolean;
 };
 
-const BOOK_REPORT_STEP = ['인용구', '독서 기본 정보', '독서 추천', '독후감', '공개 여부'] as const;
+const BOOK_REPORT_STEP = ['공개 여부', '독서 기본 정보', '독서 추천', '독후감', '인용구'] as const;
 
 export default function Home() {
   const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep } =
@@ -135,7 +137,7 @@ export default function Home() {
                   case '인용구':
                     return <QuoteStep />;
                   case '공개 여부':
-                    return <div>공개 여부</div>;
+                    return <DisclosureStep />;
                   default:
                     return null;
                 }
