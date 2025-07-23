@@ -24,7 +24,7 @@ const DisclosureStep = () => {
           value="public"
           {...register('disclosure', DISCLOSURE_SCHEMA)}
         />
-        <label htmlFor="public">독서 기록을 공개합니다.</label>
+        <label htmlFor="public">공개</label>
 
         <input
           type="radio"
@@ -32,7 +32,7 @@ const DisclosureStep = () => {
           value="private"
           {...register('disclosure', DISCLOSURE_SCHEMA)}
         />
-        <label htmlFor="private">독서 기록을 비공개로 설정합니다.</label>
+        <label htmlFor="private">비공개</label>
       </div>
 
       {errors.disclosure && <p css={errorStyle}>{errors.disclosure.message}</p>}

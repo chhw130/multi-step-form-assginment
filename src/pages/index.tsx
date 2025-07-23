@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import { Geist, Geist_Mono } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import { useMultiStep } from '@/hooks/useMultiStep';
 import ReportBasicStep from '@/(domain)/book/report/components/steps/ReportBasicStep';
@@ -10,16 +9,9 @@ import StarRatingStep from '@/(domain)/book/report/components/steps/StarRatingSt
 import BookReportStep from '@/(domain)/book/report/components/steps/BookReportStep';
 import QuoteStep from '@/(domain)/book/report/components/steps/QuoteStep';
 import DisclosureStep from '@/(domain)/book/report/components/steps/DisclosureStep';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+import PrevButton from '@/(domain)/book/report/components/button/PrevButton';
+import NextButton from '@/(domain)/book/report/components/button/NextButton';
+import SubmitButton from '@/(domain)/book/report/components/button/SubmitButton';
 
 const buttonGroupStyle = css`
   display: flex;
@@ -31,47 +23,6 @@ const buttonGroupStyle = css`
 
   @media (max-width: 640px) {
     flex-direction: column;
-  }
-`;
-
-const buttonStyle = css`
-  padding: 0.875rem 2rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 120px;
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
-  }
-`;
-
-const primaryButtonStyle = css`
-  ${buttonStyle}
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-  }
-`;
-
-const secondaryButtonStyle = css`
-  ${buttonStyle}
-  background: #f7fafc;
-  color: #4a5568;
-  border: 2px solid #e2e8f0;
-
-  &:hover:not(:disabled) {
-    background: #edf2f7;
-    border-color: #cbd5e0;
   }
 `;
 
@@ -90,7 +41,7 @@ export type BookReportForm = {
   disclosure: boolean;
 };
 
-const BOOK_REPORT_STEP = ['공개 여부', '독서 기본 정보', '독서 추천', '독후감', '인용구'] as const;
+const BOOK_REPORT_STEP = ['독서 기본 정보', '독서 추천', '독후감', '인용구', '공개 여부'] as const;
 
 export default function Home() {
   const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep } =
@@ -101,17 +52,10 @@ export default function Home() {
       quoteInfo: [{ quote: '', page: -1 }],
     },
     mode: 'onChange',
-    shouldFocusError: true,
   });
 
-  const onClickNextStep = async () => {
-    const isValid = await form.trigger();
-
-    if (!isValid) {
-      return;
-    }
-
-    navigateNextStep();
+  const onSubmit = () => {
+    console.log(form.getValues());
   };
 
   return (
@@ -122,36 +66,51 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}>
+      <div>
         <main className={styles.main}>
-          <FormProvider {...form}>
-            <section>
-              {(() => {
-                switch (currentStep) {
-                  case '독서 기본 정보':
-                    return <ReportBasicStep />;
-                  case '독서 추천':
-                    return <StarRatingStep />;
-                  case '독후감':
-                    return <BookReportStep />;
-                  case '인용구':
-                    return <QuoteStep />;
-                  case '공개 여부':
-                    return <DisclosureStep />;
-                  default:
-                    return null;
-                }
-              })()}
-            </section>
-            <section css={buttonGroupStyle}>
-              <button css={secondaryButtonStyle} disabled={isFirstStep} onClick={navigatePrevStep}>
-                이전
-              </button>
-              <button css={primaryButtonStyle} disabled={isLastStep} onClick={onClickNextStep}>
-                다음
-              </button>
-            </section>
-          </FormProvider>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormProvider {...form}>
+              <section>
+                {(() => {
+                  switch (currentStep) {
+                    case '독서 기본 정보':
+                      return <ReportBasicStep />;
+                    case '독서 추천':
+                      return <StarRatingStep />;
+                    case '독후감':
+                      return <BookReportStep />;
+                    case '인용구':
+                      return <QuoteStep />;
+                    case '공개 여부':
+                      return <DisclosureStep />;
+                    default:
+                      return null;
+                  }
+                })()}
+              </section>
+              <section css={buttonGroupStyle}>
+                <PrevButton type="button" disabled={isFirstStep} onClick={navigatePrevStep}>
+                  이전
+                </PrevButton>
+                {!isLastStep ? (
+                  <NextButton
+                    onClick={async () => {
+                      const isValid = await form.trigger();
+                      if (!isValid) {
+                        return;
+                      }
+                      navigateNextStep();
+                    }}
+                    type="button"
+                  >
+                    다음
+                  </NextButton>
+                ) : (
+                  <SubmitButton type="submit">제출</SubmitButton>
+                )}
+              </section>
+            </FormProvider>
+          </form>
         </main>
       </div>
     </>
