@@ -18,14 +18,19 @@ import { BOOK_PAGE, NUMBER_VALIDATION } from '../../consts/consts';
 import Card from '@/components/Card';
 
 const generateQuoteSchema = (quote: Quote[]) => {
+  const isRequiredPage = quote.length > 1;
+
   const quoteSchema = quote.map(() => ({
     quote: {
       required: '인용구를 입력해주세요.',
     },
     page: {
       valueAsNumber: true,
-      required: '페이지를 입력해주세요.',
       validate: (page: number) => {
+        if (!isRequiredPage) {
+          return true;
+        }
+
         if (page < 1 || page > BOOK_PAGE) {
           return '올바른 페이지를 입력해주세요.';
         }
