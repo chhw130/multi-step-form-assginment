@@ -113,3 +113,87 @@ export const reportLengthStyle = css`
   color: #a0aec0;
   margin-left: auto;
 `;
+
+export const quoteFieldGroupStyle = css`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+`;
+
+export const quoteInputGroupStyle = css`
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+export const addButtonStyle = css`
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+export const removeButtonStyle = css`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background: #fed7d7;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #feb2b2;
+    color: #9b2c2c;
+  }
+
+  &:disabled {
+    background: #edf2f7;
+    color: #a0aec0;
+    border-color: #cbd5e0;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+`;
+
+export const quoteCountStyle = css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #667eea;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+`;
+
+export const pageCountStyle = css`
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+`;

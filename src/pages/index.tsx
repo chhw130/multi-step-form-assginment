@@ -8,6 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { ReadingStatus } from '@/(domain)/book/report/consts/consts';
 import StarRatingStep from '@/(domain)/book/report/components/steps/StarRatingStep';
 import BookReportStep from '@/(domain)/book/report/components/steps/BookReportStep';
+import QuoteStep from '@/(domain)/book/report/components/steps/QuoteStep';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -73,23 +74,32 @@ const secondaryButtonStyle = css`
   }
 `;
 
+export type Quote = {
+  quote: string;
+  page: number;
+};
+
 export type BookReportForm = {
   readingStatus: ReadingStatus;
   startDate: string;
   endDate: string;
   starRating: number;
   bookReport: string;
+  quoteInfo: Quote[];
 };
 
-const BOOK_REPORT_STEP = ['독서 기본 정보', '독서 추천', '독후감', '인용구', '공개 여부'] as const;
+const BOOK_REPORT_STEP = ['인용구', '독서 기본 정보', '독서 추천', '독후감', '공개 여부'] as const;
 
 export default function Home() {
   const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep } =
     useMultiStep(BOOK_REPORT_STEP);
 
   const form = useForm<BookReportForm>({
-    defaultValues: {},
+    defaultValues: {
+      quoteInfo: [{ quote: '', page: -1 }],
+    },
     mode: 'onChange',
+    shouldFocusError: true,
   });
 
   const onClickNextStep = async () => {
@@ -123,7 +133,7 @@ export default function Home() {
                   case '독후감':
                     return <BookReportStep />;
                   case '인용구':
-                    return <div>인용구</div>;
+                    return <QuoteStep />;
                   case '공개 여부':
                     return <div>공개 여부</div>;
                   default:
