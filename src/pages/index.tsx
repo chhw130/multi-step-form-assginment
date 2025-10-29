@@ -12,6 +12,7 @@ import DisclosureStep from '@/(domain)/book/report/components/steps/DisclosureSt
 import PrevButton from '@/(domain)/book/report/components/button/PrevButton';
 import NextButton from '@/(domain)/book/report/components/button/NextButton';
 import SubmitButton from '@/(domain)/book/report/components/button/SubmitButton';
+import FormStateWidget from '@/(domain)/book/summary-app/components/widget/SummaryWidget';
 
 const buttonGroupStyle = css`
   display: flex;
@@ -41,7 +42,13 @@ export type BookReportForm = {
   disclosure: boolean;
 };
 
-const BOOK_REPORT_STEP = ['독서 기본 정보', '독서 추천', '독후감', '인용구', '공개 여부'] as const;
+export const BOOK_REPORT_STEP = [
+  '독서 기본 정보',
+  '독서 추천',
+  '독후감',
+  '인용구',
+  '공개 여부',
+] as const;
 
 export default function Home() {
   const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep } =
@@ -111,6 +118,8 @@ export default function Home() {
               </section>
             </FormProvider>
           </form>
+
+          <FormStateWidget state={form.getValues()} />
         </main>
       </div>
     </>
