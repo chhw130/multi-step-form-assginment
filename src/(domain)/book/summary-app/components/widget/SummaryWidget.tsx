@@ -8,6 +8,7 @@ import {
   quoteItemStyle,
   pageBadgeStyle,
 } from './css/widget';
+import WidgetItem from './WidgetItem';
 
 type FormStateWidgetProps = {
   state: BookReportForm;
@@ -20,10 +21,7 @@ const SummaryWidget = ({ state }: FormStateWidgetProps) => {
 
   return (
     <div css={widgetContainerStyle}>
-      <div css={sectionStyle}>
-        <h3 css={sectionTitleStyle}>독서 상태</h3>
-        <p css={sectionValueStyle}>{readingStatus}</p>
-      </div>
+      <WidgetItem label="독서 상태" defaultValue={readingStatus} />
       <div css={sectionStyle}>
         <h3 css={sectionTitleStyle}>독서 기간</h3>
         <p css={sectionValueStyle}>

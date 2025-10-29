@@ -50,7 +50,7 @@ const ReportBasicStep = () => {
     clearErrors,
   } = useFormContext<BookReportForm>();
 
-  watch();
+  watch(['startDate', 'endDate']);
   const basicInfoSchema = generateBasicInfoSchema(getValues());
   const { onChange: onChangeReadingStatus, ...rest } = register(
     'readingStatus',
