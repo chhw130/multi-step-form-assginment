@@ -4,6 +4,7 @@ import styles from '@/styles/Home.module.css';
 import { useMultiStep } from '@/hooks/useMultiStep';
 import ReportBasicStep from '@/(domain)/book/report/components/steps/ReportBasicStep';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { ReadingStatus } from '@/(domain)/book/report/consts/consts';
 import StarRatingStep from '@/(domain)/book/report/components/steps/StarRatingStep';
 import BookReportStep from '@/(domain)/book/report/components/steps/BookReportStep';
@@ -58,12 +59,13 @@ export default function Home() {
     defaultValues: {
       quoteInfo: [{ quote: '', page: -1 }],
     },
-    mode: 'onChange',
   });
 
   const onSubmit = () => {
     console.log(form.getValues());
   };
+
+  const [summaryState, setSummaryState] = useState<BookReportForm>(form.getValues());
 
   return (
     <>
@@ -99,7 +101,8 @@ export default function Home() {
                 <PrevButton type="button" disabled={isFirstStep} onClick={navigatePrevStep}>
                   이전
                 </PrevButton>
-                {!isLastStep ? (
+
+                {!isLastStep && (
                   <NextButton
                     onClick={async () => {
                       const isValid = await form.trigger();
@@ -107,19 +110,18 @@ export default function Home() {
                         return;
                       }
                       navigateNextStep();
+                      setSummaryState(form.getValues());
                     }}
                     type="button"
                   >
                     다음
                   </NextButton>
-                ) : (
-                  <SubmitButton type="submit">제출</SubmitButton>
                 )}
+                {isLastStep && <SubmitButton type="submit">제출</SubmitButton>}
               </section>
             </FormProvider>
           </form>
-
-          <FormStateWidget state={form.getValues()} />
+          <FormStateWidget state={summaryState} />
         </main>
       </div>
     </>

@@ -7,7 +7,7 @@ type UseWidgetItemProps<T> = {
 };
 
 export const useWidgetItem = <T>({ defaultValue, delay = 500 }: UseWidgetItemProps<T>) => {
-  const [value, setValue] = useState<T>();
+  const [value, setValue] = useState<T>(defaultValue);
 
   useEffect(() => {
     const debounced = debounce(() => setValue(defaultValue as T), delay);

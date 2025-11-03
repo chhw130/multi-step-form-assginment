@@ -1,13 +1,5 @@
-import { BookReportForm } from '@/pages';
-import {
-  widgetContainerStyle,
-  sectionStyle,
-  sectionTitleStyle,
-  sectionValueStyle,
-  quoteListStyle,
-  quoteItemStyle,
-  pageBadgeStyle,
-} from './css/widget';
+import { BookReportForm, Quote } from '@/pages';
+import { widgetContainerStyle } from './css/widget';
 import WidgetItem from './WidgetItem';
 
 type FormStateWidgetProps = {
@@ -21,36 +13,43 @@ const SummaryWidget = ({ state }: FormStateWidgetProps) => {
 
   return (
     <div css={widgetContainerStyle}>
-      <WidgetItem label="독서 상태" defaultValue={readingStatus} />
-      <div css={sectionStyle}>
-        <h3 css={sectionTitleStyle}>독서 기간</h3>
-        <p css={sectionValueStyle}>
-          {startDate} ~ {endDate}
-        </p>
-      </div>
-      <div css={sectionStyle}>
-        <h3 css={sectionTitleStyle}>독서 추천</h3>
-        <p css={sectionValueStyle}>{starRating}점</p>
-      </div>
-      <div css={sectionStyle}>
-        <h3 css={sectionTitleStyle}>독후감</h3>
-        <p css={sectionValueStyle}>{bookReport}</p>
-      </div>
-      <div css={sectionStyle}>
-        <h3 css={sectionTitleStyle}>인용구</h3>
-        <div css={quoteListStyle}>
-          {quoteInfo.map((quote) => (
-            <div css={quoteItemStyle} key={`${quote.quote}-${quote.page}`}>
-              <span>{quote.quote}</span>
-              <span css={pageBadgeStyle}>{quote.page}p</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div css={sectionStyle}>
-        <h3 css={sectionTitleStyle}>공개 여부</h3>
-        <p css={sectionValueStyle}>{disclosure ? '공개' : '비공개'}</p>
-      </div>
+      <WidgetItem
+        label="독서 상태"
+        defaultValue={readingStatus}
+        valueElement={(value) => <span>{value}</span>}
+      />
+
+      <WidgetItem
+        label="독서 기간"
+        defaultValue={`${startDate} ~ ${endDate}`}
+        valueElement={(value) => <span>{value}</span>}
+      />
+      <WidgetItem
+        label="독서 추천"
+        defaultValue={starRating}
+        valueElement={(value) => <span>{value}점</span>}
+      />
+      <WidgetItem
+        label="독후감"
+        defaultValue={bookReport}
+        valueElement={(value) => <span>{value}</span>}
+      />
+      <WidgetItem
+        label="인용구"
+        defaultValue={quoteInfo}
+        valueElement={(value) => (
+          <span>
+            {value.map((quote: Quote) => (
+              <span key={quote.quote}>{quote.quote}</span>
+            ))}
+          </span>
+        )}
+      />
+      <WidgetItem
+        label="공개 여부"
+        defaultValue={disclosure}
+        valueElement={(value) => <span>{value}</span>}
+      />
     </div>
   );
 };
