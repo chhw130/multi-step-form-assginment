@@ -1,7 +1,12 @@
 import { BookReportForm, Quote } from '@/pages';
 import { widgetContainerStyle } from './css/widget';
 import WidgetItem from './WidgetItem';
-import { generateReadingPeriod } from '../../util/period';
+import {
+  generateReadingPeriod,
+  generateReadingStatus,
+  generateStarRating,
+  generateQuote,
+} from '../../util/widget';
 
 type FormStateWidgetProps = {
   state: BookReportForm;
@@ -12,46 +17,32 @@ const SummaryWidget = ({ state }: FormStateWidgetProps) => {
   const { readingStatus, startDate, endDate, starRating, bookReport, quoteInfo, disclosure } =
     state;
 
+  const readingStatusText = generateReadingStatus(readingStatus);
   const readingPeriod = generateReadingPeriod(startDate, endDate);
+  const starRatingText = generateStarRating(starRating);
+  const quoteInfoText = generateQuote(quoteInfo);
 
   return (
     <div css={widgetContainerStyle}>
-      <WidgetItem
-        label="독서 상태"
-        value={readingStatus}
-        valueElement={(value) => <span>{value}</span>}
-      />
-      <WidgetItem
-        label="독서 기간"
-        value={readingPeriod}
-        valueElement={(value) => <span>{value}</span>}
-      />
-      <WidgetItem
-        label="독서 추천"
-        value={starRating}
-        valueElement={(value) => <span>{value}점</span>}
-      />
-      <WidgetItem
-        label="독후감"
-        value={bookReport}
-        valueElement={(value) => <span>{value}</span>}
-      />
+      <WidgetItem label="독서 상태" value={readingStatusText} />
+      <WidgetItem label="독서 기간" value={readingPeriod} />
+      <WidgetItem label="독서 추천" value={starRatingText} />
+      <WidgetItem label="독후감" value={bookReport} valueElement={(value) => <p>{value}</p>} />
       <WidgetItem
         label="인용구"
-        value={quoteInfo}
+        value={quoteInfoText}
         valueElement={(value) => (
-          <span>
+          <ul>
             {value.map((quote: Quote) => (
-              <span key={quote.quote}>{quote.quote}</span>
+              <li key={quote.quote}>
+                <p>{quote.quote}</p>
+                <p>페이지 번호 : {quote.page}</p>
+              </li>
             ))}
-          </span>
+          </ul>
         )}
       />
-      <WidgetItem
-        label="공개 여부"
-        value={disclosure}
-        valueElement={(value) => <span>{value}</span>}
-      />
+      <WidgetItem label="공개 여부" value={disclosure} />
     </div>
   );
 };

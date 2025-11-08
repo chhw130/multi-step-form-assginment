@@ -7,7 +7,6 @@ export const widgetContainerStyle = css`
   padding: 1.25rem;
   width: 100%;
   max-width: 500px;
-
   margin: 2rem auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 `;
@@ -15,7 +14,6 @@ export const widgetContainerStyle = css`
 export const sectionStyle = css`
   padding: 0.5rem 0 0.75rem 0;
   border-bottom: 1px dashed #e2e8f0;
-
   &:last-of-type {
     border-bottom: none;
     padding-bottom: 0;
@@ -32,6 +30,8 @@ export const sectionTitleStyle = css`
 export const sectionValueStyle = css`
   font-size: 0.95rem;
   color: #2d3748;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 `;
 
 export const quoteListStyle = css`
