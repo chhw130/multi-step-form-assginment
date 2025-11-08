@@ -2,14 +2,19 @@ export const debounce = <T extends (...args: unknown[]) => unknown>(fn: T, delay
   let timeout: ReturnType<typeof setTimeout>;
 
   return () => {
-    let result: unknown;
+    let current: unknown;
 
     if (timeout) {
       clearTimeout(timeout);
     }
+
+    const cancel = () => {
+      clearTimeout(timeout);
+    };
+
     timeout = setTimeout(() => {
-      result = fn();
+      current = fn();
     }, delay);
-    return result;
+    return { current, cancel };
   };
 };

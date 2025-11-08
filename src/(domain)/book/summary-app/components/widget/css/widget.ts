@@ -5,12 +5,9 @@ export const widgetContainerStyle = css`
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.25rem;
-  position: absolute;
-  top: 100px;
-  right: 100px;
   width: 100%;
   max-width: 480px;
-  margin: 2rem auto 0 auto;
+  margin: 2rem auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 `;
 

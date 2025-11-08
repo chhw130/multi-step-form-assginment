@@ -4,7 +4,6 @@ import styles from '@/styles/Home.module.css';
 import { useMultiStep } from '@/hooks/useMultiStep';
 import ReportBasicStep from '@/(domain)/book/report/components/steps/ReportBasicStep';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useState } from 'react';
 import { ReadingStatus } from '@/(domain)/book/report/consts/consts';
 import StarRatingStep from '@/(domain)/book/report/components/steps/StarRatingStep';
 import BookReportStep from '@/(domain)/book/report/components/steps/BookReportStep';
@@ -65,8 +64,6 @@ export default function Home() {
     console.log(form.getValues());
   };
 
-  const [summaryState, setSummaryState] = useState<BookReportForm>(form.getValues());
-
   return (
     <>
       <Head>
@@ -110,7 +107,6 @@ export default function Home() {
                         return;
                       }
                       navigateNextStep();
-                      setSummaryState(form.getValues());
                     }}
                     type="button"
                   >
@@ -121,7 +117,7 @@ export default function Home() {
               </section>
             </FormProvider>
           </form>
-          <FormStateWidget state={summaryState} />
+          <FormStateWidget state={form.getValues()} />
         </main>
       </div>
     </>

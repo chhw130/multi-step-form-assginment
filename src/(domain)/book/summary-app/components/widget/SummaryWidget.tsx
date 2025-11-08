@@ -1,6 +1,7 @@
 import { BookReportForm, Quote } from '@/pages';
 import { widgetContainerStyle } from './css/widget';
 import WidgetItem from './WidgetItem';
+import { generateReadingPeriod } from '../../util/period';
 
 type FormStateWidgetProps = {
   state: BookReportForm;
@@ -11,32 +12,33 @@ const SummaryWidget = ({ state }: FormStateWidgetProps) => {
   const { readingStatus, startDate, endDate, starRating, bookReport, quoteInfo, disclosure } =
     state;
 
+  const readingPeriod = generateReadingPeriod(startDate, endDate);
+
   return (
     <div css={widgetContainerStyle}>
       <WidgetItem
         label="독서 상태"
-        defaultValue={readingStatus}
+        value={readingStatus}
         valueElement={(value) => <span>{value}</span>}
       />
-
       <WidgetItem
         label="독서 기간"
-        defaultValue={`${startDate} ~ ${endDate}`}
+        value={readingPeriod}
         valueElement={(value) => <span>{value}</span>}
       />
       <WidgetItem
         label="독서 추천"
-        defaultValue={starRating}
+        value={starRating}
         valueElement={(value) => <span>{value}점</span>}
       />
       <WidgetItem
         label="독후감"
-        defaultValue={bookReport}
+        value={bookReport}
         valueElement={(value) => <span>{value}</span>}
       />
       <WidgetItem
         label="인용구"
-        defaultValue={quoteInfo}
+        value={quoteInfo}
         valueElement={(value) => (
           <span>
             {value.map((quote: Quote) => (
@@ -47,7 +49,7 @@ const SummaryWidget = ({ state }: FormStateWidgetProps) => {
       />
       <WidgetItem
         label="공개 여부"
-        defaultValue={disclosure}
+        value={disclosure}
         valueElement={(value) => <span>{value}</span>}
       />
     </div>
