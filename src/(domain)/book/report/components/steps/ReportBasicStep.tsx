@@ -50,7 +50,7 @@ const ReportBasicStep = () => {
     clearErrors,
   } = useFormContext<BookReportForm>();
 
-  watch();
+  watch(['startDate', 'endDate']);
   const basicInfoSchema = generateBasicInfoSchema(getValues());
   const { onChange: onChangeReadingStatus, ...rest } = register(
     'readingStatus',
@@ -58,6 +58,11 @@ const ReportBasicStep = () => {
   );
 
   const dateError = errors.startDate?.message || errors.endDate?.message;
+
+  const readingStatusOptions = Object.entries(READING_STATUS).map(([key, value]) => ({
+    label: value,
+    value: key,
+  }));
 
   return (
     <article css={containerStyle}>
@@ -79,7 +84,7 @@ const ReportBasicStep = () => {
           }}
         >
           <option value="">독서 상태를 선택해주세요.</option>
-          {READING_STATUS.map((status) => (
+          {readingStatusOptions.map((status) => (
             <option key={status.value} value={status.value}>
               {status.label}
             </option>

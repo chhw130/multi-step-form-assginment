@@ -5,7 +5,7 @@ const LayoutContainer = css`
   flex-direction: column;
   min-height: 100vh;
   margin: 0 auto;
-  max-width: 786px;
+  max-width: 900px;
   width: 100%;
   padding: 0 20px;
 `;

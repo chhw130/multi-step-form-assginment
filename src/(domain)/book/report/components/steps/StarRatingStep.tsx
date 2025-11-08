@@ -5,7 +5,7 @@ import { containerStyle, titleStyle, subtitleStyle, labelStyle } from './css/ste
 
 const StarRatingStep = () => {
   const { control } = useFormContext<BookReportForm>();
-
+  //별점 상태를 즉각적으로 widget에 반영하려면 리렌더링 혹은 제어 컴포넌트 느낌으로 써야할 거 같음.
   return (
     <article css={containerStyle}>
       <h2 css={titleStyle}>독서 추천</h2>
