@@ -1,5 +1,5 @@
 import { sectionStyle, sectionTitleStyle, sectionValueStyle } from './css/widget';
-import { useWidgetItem } from '../../hooks/useWidgetItem';
+import { useWidgetItem } from '@/(domain)/book/summary-app/hooks/useWidgetItem';
 import { ReactNode } from 'react';
 
 type WidgetItemProps<T> = {

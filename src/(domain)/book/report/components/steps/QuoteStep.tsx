@@ -1,5 +1,6 @@
 import { Controller, FieldError, useFieldArray, useFormContext } from 'react-hook-form';
-import { BookReportForm, Quote } from '@/pages';
+import { BookReportForm } from '@/(domain)/book/report/consts/consts';
+import { Quote } from '@/(domain)/book/share/consts/consts';
 import {
   containerStyle,
   titleStyle,
@@ -14,7 +15,7 @@ import {
   quoteCountStyle,
   pageCountStyle,
 } from './css/step';
-import { BOOK_PAGE, NUMBER_VALIDATION } from '../../consts/consts';
+import { BOOK_PAGE, NUMBER_VALIDATION } from '@/(domain)/book/report/consts/consts';
 import Card from '@/components/Card';
 
 const generateQuoteSchema = (quote: Quote[]) => {

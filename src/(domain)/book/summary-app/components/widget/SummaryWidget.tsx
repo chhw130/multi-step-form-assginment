@@ -1,4 +1,3 @@
-import { BookReportForm } from '@/pages';
 import { widgetContainerStyle } from './css/widget';
 import WidgetItem from './WidgetItem';
 import {
@@ -6,17 +5,16 @@ import {
   generateReadingStatus,
   generateStarRating,
   generateQuote,
-} from '../../util/widget';
+} from '@/(domain)/book/summary-app/util/widget';
 import { useMemo } from 'react';
-
-type FormStateWidgetProps = {
-  state: BookReportForm;
-};
+import { useFormContext } from 'react-hook-form';
+import { BookReportForm } from '@/(domain)/book/report/consts/consts';
 
 /**report관련 Widget이라 도메인을 옮겨야함. */
-const SummaryWidget = ({ state }: FormStateWidgetProps) => {
+const SummaryWidget = () => {
+  const form = useFormContext<BookReportForm>();
   const { readingStatus, startDate, endDate, starRating, bookReport, quoteInfo, disclosure } =
-    state;
+    form.getValues();
 
   const readingStatusText = generateReadingStatus(readingStatus);
   const readingPeriod = generateReadingPeriod(startDate, endDate);

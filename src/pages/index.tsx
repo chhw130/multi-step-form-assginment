@@ -1,76 +1,21 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import { useMultiStep } from '@/hooks/useMultiStep';
-import ReportBasicStep from '@/(domain)/book/report/components/steps/ReportBasicStep';
 import { FormProvider, useForm } from 'react-hook-form';
-import StarRatingStep from '@/(domain)/book/report/components/steps/StarRatingStep';
-import BookReportStep from '@/(domain)/book/report/components/steps/BookReportStep';
-import QuoteStep from '@/(domain)/book/report/components/steps/QuoteStep';
-import DisclosureStep from '@/(domain)/book/report/components/steps/DisclosureStep';
-import PrevButton from '@/(domain)/book/report/components/button/PrevButton';
-import NextButton from '@/(domain)/book/report/components/button/NextButton';
-import SubmitButton from '@/(domain)/book/report/components/button/SubmitButton';
 import FormStateWidget from '@/(domain)/book/summary-app/components/widget/SummaryWidget';
-import { ReadingStatus } from '@/(domain)/book/report/consts/consts';
+import ReportForm from '@/(domain)/book/report/components/form/ReportForm';
+import { BookReportForm } from '@/(domain)/book/report/consts/consts';
 
 const mainStyle = css`
   display: flex;
   gap: 2rem;
 `;
 
-const formStyle = css`
-  min-width: 500px;
-`;
-
-const buttonGroupStyle = css`
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid #e2e8f0;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-  }
-`;
-
-export type Quote = {
-  quote: string;
-  page: number;
-};
-
-export type BookReportForm = {
-  readingStatus: ReadingStatus;
-  startDate: string;
-  endDate: string;
-  starRating: number;
-  bookReport: string;
-  quoteInfo: Quote[];
-  disclosure: boolean;
-};
-
-export const BOOK_REPORT_STEP = [
-  '독서 기본 정보',
-  '독서 추천',
-  '독후감',
-  '인용구',
-  '공개 여부',
-] as const;
-
 export default function Home() {
-  const { currentStep, navigateNextStep, navigatePrevStep, isFirstStep, isLastStep } =
-    useMultiStep(BOOK_REPORT_STEP);
-
   const form = useForm<BookReportForm>({
     defaultValues: {
       quoteInfo: [{ quote: '', page: -1 }],
     },
   });
-
-  const onSubmit = () => {
-    console.log(form.getValues());
-  };
 
   return (
     <>
@@ -81,51 +26,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div css={mainStyle}>
-        <form css={formStyle} onSubmit={form.handleSubmit(onSubmit)}>
-          <FormProvider {...form}>
-            <section>
-              {(() => {
-                switch (currentStep) {
-                  case '독서 기본 정보':
-                    return <ReportBasicStep />;
-                  case '독서 추천':
-                    return <StarRatingStep />;
-                  case '독후감':
-                    return <BookReportStep />;
-                  case '인용구':
-                    return <QuoteStep />;
-                  case '공개 여부':
-                    return <DisclosureStep />;
-                  default:
-                    return null;
-                }
-              })()}
-            </section>
-            <section css={buttonGroupStyle}>
-              <PrevButton type="button" disabled={isFirstStep} onClick={navigatePrevStep}>
-                이전
-              </PrevButton>
-
-              {!isLastStep && (
-                <NextButton
-                  onClick={async () => {
-                    const isValid = await form.trigger();
-                    if (!isValid) {
-                      return;
-                    }
-                    navigateNextStep();
-                  }}
-                  type="button"
-                >
-                  다음
-                </NextButton>
-              )}
-              {isLastStep && <SubmitButton type="submit">제출</SubmitButton>}
-            </section>
-          </FormProvider>
-        </form>
-
-        <FormStateWidget state={form.getValues()} />
+        <FormProvider {...form}>
+          <ReportForm />
+          <FormStateWidget />
+        </FormProvider>
       </div>
     </>
   );

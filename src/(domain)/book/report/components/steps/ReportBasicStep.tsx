@@ -1,7 +1,7 @@
-import { generatePeriodDisabled } from '../../utils/step';
-import { READING_STATUS } from '../../consts/consts';
+import { generatePeriodDisabled } from '@/(domain)/book/report/utils/step';
 import { useFormContext } from 'react-hook-form';
-import { BookReportForm } from '@/pages';
+import { BookReportForm } from '@/(domain)/book/report/consts/consts';
+import { READING_STATUS } from '@/(domain)/book/share/consts/consts';
 import {
   containerStyle,
   titleStyle,
