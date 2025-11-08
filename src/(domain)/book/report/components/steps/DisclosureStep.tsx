@@ -12,6 +12,8 @@ const DisclosureStep = () => {
     formState: { errors },
   } = useFormContext<BookReportForm>();
 
+  //공개 여부 상태를 즉각적으로 widget에 반영하려면 리렌더링 혹은 제어 컴포넌트 느낌으로 써야할 거 같음.
+
   return (
     <article css={containerStyle}>
       <h2 css={titleStyle}>공개 여부</h2>
