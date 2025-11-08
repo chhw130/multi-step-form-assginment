@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { useMultiStep } from '@/hooks/useMultiStep';
 import ReportBasicStep from '@/(domain)/book/report/components/steps/ReportBasicStep';
 import { FormProvider, useForm } from 'react-hook-form';
-import { ReadingStatus } from '@/(domain)/book/report/consts/consts';
 import StarRatingStep from '@/(domain)/book/report/components/steps/StarRatingStep';
 import BookReportStep from '@/(domain)/book/report/components/steps/BookReportStep';
 import QuoteStep from '@/(domain)/book/report/components/steps/QuoteStep';
@@ -12,6 +11,7 @@ import PrevButton from '@/(domain)/book/report/components/button/PrevButton';
 import NextButton from '@/(domain)/book/report/components/button/NextButton';
 import SubmitButton from '@/(domain)/book/report/components/button/SubmitButton';
 import FormStateWidget from '@/(domain)/book/summary-app/components/widget/SummaryWidget';
+import { ReadingStatus } from '@/(domain)/book/report/consts/consts';
 
 const mainStyle = css`
   display: flex;
@@ -124,6 +124,7 @@ export default function Home() {
             </section>
           </FormProvider>
         </form>
+
         <FormStateWidget state={form.getValues()} />
       </div>
     </>

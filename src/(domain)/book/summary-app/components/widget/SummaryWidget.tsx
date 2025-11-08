@@ -1,4 +1,4 @@
-import { BookReportForm, Quote } from '@/pages';
+import { BookReportForm } from '@/pages';
 import { widgetContainerStyle } from './css/widget';
 import WidgetItem from './WidgetItem';
 import {
@@ -7,6 +7,7 @@ import {
   generateStarRating,
   generateQuote,
 } from '../../util/widget';
+import { useMemo } from 'react';
 
 type FormStateWidgetProps = {
   state: BookReportForm;
@@ -20,7 +21,7 @@ const SummaryWidget = ({ state }: FormStateWidgetProps) => {
   const readingStatusText = generateReadingStatus(readingStatus);
   const readingPeriod = generateReadingPeriod(startDate, endDate);
   const starRatingText = generateStarRating(starRating);
-  const quoteInfoText = generateQuote(quoteInfo);
+  const quoteInfoText = useMemo(() => generateQuote(quoteInfo), [quoteInfo]);
 
   return (
     <div css={widgetContainerStyle}>
@@ -33,7 +34,7 @@ const SummaryWidget = ({ state }: FormStateWidgetProps) => {
         value={quoteInfoText}
         valueElement={(value) => (
           <ul>
-            {value.map((quote: Quote) => (
+            {value.map((quote) => (
               <li key={quote.quote}>
                 <p>{quote.quote}</p>
                 <p>페이지 번호 : {quote.page}</p>

@@ -1,17 +1,17 @@
 import { Quote } from '@/pages';
-import { READING_STATUS, ReadingStatus } from '../../report/consts/consts';
+import { READING_STATUS, ReadingStatus, ReadingStatusValue } from '../../report/consts/consts';
 
 /**
  * 독서 상태 생성
  * @param readingStatus 독서 상태
  * @returns 독서 상태
  */
-export const generateReadingStatus = (readingStatus: ReadingStatus) => {
-  if (readingStatus == null) {
+export const generateReadingStatus = (readingStatus: ReadingStatus): ReadingStatusValue | '' => {
+  if (!readingStatus) {
     return '';
   }
 
-  return READING_STATUS.find((status) => status.value === readingStatus)?.label;
+  return READING_STATUS[readingStatus];
 };
 
 /**

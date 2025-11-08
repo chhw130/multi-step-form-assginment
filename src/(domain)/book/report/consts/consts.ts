@@ -1,11 +1,12 @@
-export const READING_STATUS = [
-  { label: '읽는 중', value: 'reading' },
-  { label: '읽음', value: 'finished' },
-  { label: '읽고 싶은 책', value: 'want' },
-  { label: '보류 중', value: 'stop' },
-] as const;
+export const READING_STATUS = {
+  reading: '읽는 중',
+  finished: '읽음',
+  want: '읽고 싶은 책',
+  stop: '보류 중',
+} as const;
 
-export type ReadingStatus = (typeof READING_STATUS)[number]['value'];
+export type ReadingStatus = keyof typeof READING_STATUS;
+export type ReadingStatusValue = (typeof READING_STATUS)[ReadingStatus];
 
 export const BOOK_PAGE = 365;
 

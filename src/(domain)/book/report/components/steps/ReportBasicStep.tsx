@@ -59,6 +59,11 @@ const ReportBasicStep = () => {
 
   const dateError = errors.startDate?.message || errors.endDate?.message;
 
+  const readingStatusOptions = Object.entries(READING_STATUS).map(([key, value]) => ({
+    label: value,
+    value: key,
+  }));
+
   return (
     <article css={containerStyle}>
       <h1 css={titleStyle}>도서 기본 정보</h1>
@@ -79,7 +84,7 @@ const ReportBasicStep = () => {
           }}
         >
           <option value="">독서 상태를 선택해주세요.</option>
-          {READING_STATUS.map((status) => (
+          {readingStatusOptions.map((status) => (
             <option key={status.value} value={status.value}>
               {status.label}
             </option>
