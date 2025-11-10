@@ -1,4 +1,3 @@
-import { BookReportForm } from '@/pages';
 import {
   containerStyle,
   errorStyle,
@@ -10,6 +9,7 @@ import {
   reportLengthStyle,
 } from './css/step';
 import { useFormContext } from 'react-hook-form';
+import { BookReportForm } from '@/(domain)/book/report/consts/consts';
 import { useEffect } from 'react';
 
 const generateBookReportSchema = (starRating: BookReportForm['starRating']) => {

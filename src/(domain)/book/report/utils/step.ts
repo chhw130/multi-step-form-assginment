@@ -1,4 +1,4 @@
-import { ReadingStatus } from '../consts/consts';
+import { ReadingStatus } from '@/(domain)/book/share/consts/consts';
 
 /**
  * 독서 기간 비활성화 여부 생성

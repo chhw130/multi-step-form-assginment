@@ -1,5 +1,9 @@
-import { Quote } from '@/pages';
-import { READING_STATUS, ReadingStatus, ReadingStatusValue } from '../../report/consts/consts';
+import {
+  Quote,
+  READING_STATUS,
+  ReadingStatus,
+  ReadingStatusValue,
+} from '@/(domain)/book/share/consts/consts';
 
 /**
  * 독서 상태 생성

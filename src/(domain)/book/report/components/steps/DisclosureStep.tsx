@@ -1,6 +1,6 @@
+import { BookReportForm } from '@/(domain)/book/report/consts/consts';
 import { containerStyle, titleStyle, subtitleStyle, errorStyle, radioGroupStyle } from './css/step';
 import { useFormContext } from 'react-hook-form';
-import { BookReportForm } from '@/pages';
 
 const DISCLOSURE_SCHEMA = {
   required: '공개 여부를 선택해주세요.',
