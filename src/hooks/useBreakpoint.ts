@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-export const useMediaQuery = (query: string) => {
+type UseBreakpointProps = {
+  query: string;
+};
+
+export const useBreakpoint = ({ query }: UseBreakpointProps) => {
   const [matches, setMatches] = useState(() => {
     return window.matchMedia(query).matches;
   });

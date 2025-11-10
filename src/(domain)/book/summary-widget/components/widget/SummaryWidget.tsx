@@ -9,7 +9,7 @@ import {
 import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { BookReportForm } from '@/(domain)/book/report/consts/consts';
-import { useMediaQuery } from '@/hooks/useMediQuery';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 
 /**report관련 Widget이라 도메인을 옮겨야함. */
 const SummaryWidget = () => {
@@ -22,7 +22,7 @@ const SummaryWidget = () => {
   const starRatingText = generateStarRating(starRating);
   const quoteInfoText = useMemo(() => generateQuote(quoteInfo), [quoteInfo]);
 
-  const render = useMediaQuery('(min-width: 1024px)');
+  const render = useBreakpoint({ query: '(min-width: 1024px)' });
 
   if (!render) {
     return null;
