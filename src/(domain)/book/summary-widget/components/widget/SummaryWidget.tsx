@@ -5,7 +5,7 @@ import {
   generateReadingStatus,
   generateStarRating,
   generateQuote,
-} from '@/(domain)/book/summary-app/util/widget';
+} from '@/(domain)/book/summary-widget/util/widget';
 import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { BookReportForm } from '@/(domain)/book/report/consts/consts';

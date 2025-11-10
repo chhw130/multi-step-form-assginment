@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import { FormProvider, useForm } from 'react-hook-form';
-import FormStateWidget from '@/(domain)/book/summary-app/components/widget/SummaryWidget';
+import FormStateWidget from '@/(domain)/book/summary-widget/components/widget/SummaryWidget';
 import ReportForm from '@/(domain)/book/report/components/form/ReportForm';
 import { BookReportForm } from '@/(domain)/book/report/consts/consts';
 
