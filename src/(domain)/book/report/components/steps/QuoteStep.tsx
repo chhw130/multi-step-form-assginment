@@ -1,4 +1,4 @@
-import { Controller, FieldError, useFieldArray, useFormContext } from 'react-hook-form';
+import { FieldError, useFieldArray, useFormContext } from 'react-hook-form';
 import { BookReportForm } from '@/(domain)/book/report/consts/consts';
 import { Quote } from '@/(domain)/book/share/consts/consts';
 import {
@@ -15,24 +15,24 @@ import {
   quoteCountStyle,
   pageCountStyle,
 } from './css/step';
-import { BOOK_PAGE, NUMBER_VALIDATION } from '@/(domain)/book/report/consts/consts';
+import { BOOK_PAGE } from '@/(domain)/book/report/consts/consts';
 import Card from '@/components/Card';
+import RHFCommaSeperateInput from '@/components/Input/RHFCommaSeperateInput';
 
 const generateQuoteSchema = (quote: Quote[]) => {
-  const isRequiredPage = quote.length > 1;
-
   const quoteSchema = quote.map(() => ({
     quote: {
       required: '인용구를 입력해주세요.',
     },
     page: {
+      required: '페이지를 입력해주세요.',
       valueAsNumber: true,
-      validate: (page: number) => {
-        if (!isRequiredPage) {
-          return true;
+      validate: (page: unknown) => {
+        if (typeof page !== 'number') {
+          return false;
         }
 
-        if (page < 1 || page > BOOK_PAGE) {
+        if (page < 1 || BOOK_PAGE < page) {
           return '올바른 페이지를 입력해주세요.';
         }
         return true;
@@ -107,35 +107,26 @@ const QuoteStep = () => {
                 <label htmlFor={`page-${index}`} css={labelStyle}>
                   페이지 번호
                 </label>
-                <Controller
+                <RHFCommaSeperateInput
+                  name={`quoteInfo.${index}.page`}
                   control={control}
                   rules={quoteSchema.quoteInfo[index].page}
-                  name={`quoteInfo.${index}.page`}
-                  render={({ field }) => {
-                    const pageValue = field.value <= 0 ? '' : field.value;
-                    return (
-                      <input
-                        id={`page-${index}`}
-                        placeholder="페이지를 입력해주세요."
-                        value={pageValue}
-                        css={inputStyle}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(NUMBER_VALIDATION, '');
-                          field.onChange(Number(value));
-                        }}
-                      />
-                    );
-                  }}
+                  id={`page-${index}`}
+                  placeholder="페이지를 입력해주세요."
+                  css={inputStyle}
                 />
               </div>
-
               {quoteError && <p css={errorStyle}>{generateQuoteError(quoteError)}</p>}
             </Card>
           );
         })}
       </div>
 
-      <button type="button" css={addButtonStyle} onClick={() => append({ quote: '', page: -1 })}>
+      <button
+        type="button"
+        css={addButtonStyle}
+        onClick={() => append({ quote: '', page: undefined })}
+      >
         인용구 추가
       </button>
     </article>
