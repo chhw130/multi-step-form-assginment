@@ -20,7 +20,7 @@ const mainStyle = css`
 export default function Home() {
   const form = useForm<BookReportForm>({
     defaultValues: {
-      quoteInfo: [{ quote: '', page: -1 }],
+      quoteInfo: [{ quote: '', page: undefined }],
     },
   });
 

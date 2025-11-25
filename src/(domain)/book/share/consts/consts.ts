@@ -1,6 +1,6 @@
 export type Quote = {
   quote: string;
-  page: number;
+  page: number | undefined;
 };
 
 export const READING_STATUS = {
