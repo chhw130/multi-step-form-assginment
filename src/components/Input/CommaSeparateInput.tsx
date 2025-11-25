@@ -7,7 +7,7 @@ export type CommaSeparateInputProps = {
 
 const CommaSeparateInput = forwardRef<HTMLInputElement, CommaSeparateInputProps>(
   ({ valueNumber, handleChangeNumber, ...props }, ref) => {
-    const [value, setValue] = useState<string>(valueNumber?.toString() ?? '');
+    const [value, setValue] = useState<string>(() => (valueNumber ? valueNumber.toString() : ''));
 
     const commaValue = useMemo(() => {
       if (!value) return '';

@@ -8,11 +8,12 @@ const RHFCommaSeperateInput = <T extends FieldValues>({
   control,
   name,
   rules,
+  defaultValue,
   ...props
 }: RHFCommaSeperateInputProps<T>) => {
   const {
     field: { onChange, onBlur, value, ref },
-  } = useController({ name, control, rules });
+  } = useController({ name, control, rules, defaultValue });
 
   return (
     <CommaSeparateInput

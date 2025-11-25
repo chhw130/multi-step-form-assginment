@@ -95,7 +95,6 @@ const QuoteStep = () => {
                   인용구
                 </label>
                 <input
-                  type="text"
                   id={`quote-${index}`}
                   placeholder="인용구를 입력해주세요."
                   {...register(`quoteInfo.${index}.quote`, quoteSchema.quoteInfo[index].quote)}
@@ -104,14 +103,14 @@ const QuoteStep = () => {
               </div>
 
               <div css={quoteInputGroupStyle}>
-                <label htmlFor={`page-${index}`} css={labelStyle}>
+                <label htmlFor={`quoteInfo.${index}.page`} css={labelStyle}>
                   페이지 번호
                 </label>
                 <RHFCommaSeperateInput
                   name={`quoteInfo.${index}.page`}
+                  id={`quoteInfo.${index}.page`}
                   control={control}
                   rules={quoteSchema.quoteInfo[index].page}
-                  id={`page-${index}`}
                   placeholder="페이지를 입력해주세요."
                   css={inputStyle}
                 />
