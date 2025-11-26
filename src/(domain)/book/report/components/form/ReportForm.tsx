@@ -10,6 +10,8 @@ import NextButton from '../button/NextButton';
 import { useMultiStep } from '@/hooks/useMultiStep';
 import SubmitButton from '../button/SubmitButton';
 import { BookReportForm } from '@/(domain)/book/report/consts/consts';
+import { setSessionStorageValue } from '@/util/sessionStorage';
+import { STORAGE_KEY } from '@/consts/keys';
 
 //이곳에 밖에 쓰이지 않는 상수이기 때문에 여기에 둠.
 const STEP_COMPONENTS = {
@@ -34,16 +36,20 @@ const ReportForm = () => {
 
   const form = useFormContext<BookReportForm>();
 
+  const formValues = form.getValues();
+
   const onClickNextButton = async () => {
     const isValid = await form.trigger();
     if (!isValid) {
       return;
     }
+    setSessionStorageValue(STORAGE_KEY.BOOK_REPORT_FORM, formValues);
+
     navigateNextStep();
   };
 
   const onSubmit = () => {
-    console.log(form.getValues());
+    console.log(formValues);
   };
 
   return (
