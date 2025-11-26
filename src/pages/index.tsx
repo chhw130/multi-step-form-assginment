@@ -4,6 +4,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import ReportForm from '@/(domain)/book/report/components/form/ReportForm';
 import { BookReportForm } from '@/(domain)/book/report/consts/consts';
 import dynamic from 'next/dynamic';
+import { getSessionStorageValue } from '@/util/sessionStorage';
+import { STORAGE_KEY } from '@/consts/keys';
+import { useEffect } from 'react';
 
 const SummaryWidget = dynamic(
   () => import('@/(domain)/book/summary-widget/components/widget/SummaryWidget'),
@@ -17,12 +20,21 @@ const mainStyle = css`
   gap: 2rem;
 `;
 
+const DEFAULT_VALUES = {
+  quoteInfo: [{ quote: '', page: undefined }],
+};
+
 export default function Home() {
   const form = useForm<BookReportForm>({
-    defaultValues: {
-      quoteInfo: [{ quote: '', page: undefined }],
-    },
+    defaultValues: DEFAULT_VALUES,
   });
+
+  useEffect(() => {
+    const getValues = getSessionStorageValue<BookReportForm>(STORAGE_KEY.BOOK_REPORT_FORM);
+    if (getValues) {
+      form.reset(getValues);
+    }
+  }, []);
 
   return (
     <>
